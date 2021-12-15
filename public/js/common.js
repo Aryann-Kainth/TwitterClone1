@@ -605,3 +605,14 @@ function updateSelectedUsersHtml(){
     $(".selectedUser").remove();
     $("#selectedUsers").prepend(elements);
 }
+function messageReceived(newMessage)
+{
+    if($(".chatContainer").length==0)
+    {
+        // if user is not on chat page 
+    }
+    else
+    {
+        addChatMessageHtml(newMessage);
+    }
+}
