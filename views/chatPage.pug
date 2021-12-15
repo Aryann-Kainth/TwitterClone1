@@ -1,0 +1,30 @@
+extends layouts/main-layout.pug
+
+block content   
+    
+    if errorMessage
+        span.errorMessage #{errorMessage}
+    else 
+        script.
+            var chatId = '!{chat._id}';
+
+        .chatPageContainer
+            .chatTitleBarContainer 
+                +createChatImage(chat,userLoggedIn)
+                span#chatName(data-toggle='modal',data-target='#chatNameModal') 
+
+            .mainContentContainer   
+                .loadingSpinnerContainer
+                    img(src="http://cdn.lowgif.com/full/dc86e54ceca03be4-loading-spinner-animated-gif-83320-mediabin.gif", alt="")
+
+                .chatContainer(style="visibility:hidden")
+                    ul.chatMessages
+
+                    .footer 
+                        textarea.inputTextBox(name="messageInput",placeholder="Write message here") 
+                        button.sendMessageButton  
+                            i.fas.fa-paper-plane
+            +createChatNameModal(chat)
+
+block scripts
+    script(src="/js/chatPage.js")
