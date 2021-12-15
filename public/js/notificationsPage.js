@@ -19,7 +19,8 @@ function outputNotificationList(notifications,container)
 function createNotificationHtml(notification)
 {   var userFrom=notification.userFrom;
     var text=getNotificationText(notification);
-    return `<a href='#'class='resultListItem notification' >
+    var url=getNotificationUrl(notification)
+    return `<a href='${url}'class='resultListItem notification' >
     <div class='resultsImageContainer'>
     <img src='${userFrom.profilePic}'>
     </div>
@@ -55,4 +56,18 @@ function getNotificationText(notification)
         text=`${userFromName} started following you`
     }
     return `<span class='ellipsis'>${text}</span>`;
+}
+function getNotificationUrl(notification)
+{   
+    var url="#";
+    if(notification.notificationType=='retweet'||notification.notificationType=='like'||notification.notificationType=='reply')
+    {
+        url=`/posts/${notification.entityId}`
+    }
+   
+    if(notification.notificationType=='follow')
+    {
+        url=`/profile/${notification.entityId}`
+    }
+    return url;
 }
