@@ -613,12 +613,20 @@ font-weight: 500;
     flex-shrink: 0;
 
 }
-.chatMessages .message .messageBody{
+.typingDots img,.chatMessages .message .messageBody{
     background-color: #f1f0f0;
     padding: 6px 12px;
     border-radius: 18px;
     font-size: 14px;
 
+}
+.typingDots img{
+    height: 35px;
+
+}
+.typingDots{
+    padding: 0 var(--spacing);
+    display: none;
 }
 .chatMessages .messageContainer{
 display: flex;
