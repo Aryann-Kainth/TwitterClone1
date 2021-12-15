@@ -72,5 +72,8 @@ app.get('/logout',(req,res)=>{
 })
 
 io.on("connection",(socket)=>{
-console.log("Socket.io is running")
+//console.log("Socket.io is running")
+socket.on('setup',userData=>{
+    console.log(userData.firstName)
+})
 })
