@@ -1,4 +1,5 @@
 $(document).ready(() => {
+    socket.emit("join room",chatId);
     $(".inputTextBox").val("");
     $.get(`/api/chats/${chatId}`, (data) => $("#chatName").text(getChatName(data)))
 

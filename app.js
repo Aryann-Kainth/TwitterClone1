@@ -74,6 +74,12 @@ app.get('/logout',(req,res)=>{
 io.on("connection",(socket)=>{
 //console.log("Socket.io is running")
 socket.on('setup',userData=>{
-    console.log(userData.firstName)
+   // console.log(userData.firstName)
+   socket.join(userData._id);
+   socket.emit("connected");
+
+})
+socket.on('join room',(room)=>{
+    socket.join(room);
 })
 })
