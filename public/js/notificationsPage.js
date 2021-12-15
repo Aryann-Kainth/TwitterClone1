@@ -18,14 +18,41 @@ function outputNotificationList(notifications,container)
 }
 function createNotificationHtml(notification)
 {   var userFrom=notification.userFrom;
-
+    var text=getNotificationText(notification);
     return `<a href='#'class='resultListItem notification' >
     <div class='resultsImageContainer'>
     <img src='${userFrom.profilePic}'>
     </div>
     <div class='resultDetailsContainer ellipsis'>
-    <span class='ellipsis'>This is Notif</span>
+    <span class='ellipsis'>${text}</span>
     
     </div>
     </a>`
+}
+
+function getNotificationText(notification)
+{   var userFrom=notification.userFrom;
+    if(!userFrom.firstName)
+    {
+        return ;
+    }
+    var userFromName=`${userFrom.firstName}  ${userFrom.lastName} `;
+    var text;
+    if(notification.notificationType=='retweet')
+    {
+        text=`${userFromName} retweeted your Post`
+    }
+    if(notification.notificationType=='like')
+    {
+        text=`${userFromName} liked your Post`
+    }
+    if(notification.notificationType=='reply')
+    {
+        text=`${userFromName} commented on your Post`
+    }
+    if(notification.notificationType=='follow')
+    {
+        text=`${userFromName} started following you`
+    }
+    return `<span class='ellipsis'>${text}</span>`;
 }
