@@ -20,6 +20,26 @@ router.get('/',async(req,res)=>{
       res.sendStatus(400);
   })
 })
+router.put('/:id/markAsOpened',async(req,res)=>{
+  // res.status(200).send('works');
+  Notification.findByIdAndUpdate(req.params.id,{opened:true})
+  
+  .then(()=>res.sendStatus(204))
+  .catch(err=>{
+      console.log(err);
+      res.sendStatus(400);
+  })
+})
+router.put('/markAsOpened',async(req,res)=>{
+  // res.status(200).send('works');
+  Notification.updateMany({userTo:req.session.user._id},{opened:true})
+  
+  .then(()=>res.sendStatus(204))
+  .catch(err=>{
+      console.log(err);
+      res.sendStatus(400);
+  })
+})
 
 
 module.exports = router;
