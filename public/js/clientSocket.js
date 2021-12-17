@@ -9,7 +9,10 @@ socket.on("message received",(newMessage)=>{
 })
 
 socket.on("notification received",(newNotification)=>{
-    console.log("works");
+    //console.log("works");
+    $.get("./api/notifications/latest",(notificationData)=>{
+        refreshNotificationsBadge();
+    })
 })
 
 function emitNotification(userId)
