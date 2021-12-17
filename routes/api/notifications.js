@@ -10,7 +10,12 @@ const Notification=require('../../schemas/notificationSchema');
 app.use(bodyParser.urlencoded({ extended: false }));
 router.get('/',async(req,res)=>{
   // res.status(200).send('works');
-  Notification.find({userTo:req.session.user._id,notificationType:{$ne:"new message"}})
+  var searchObj={userTo:req.session.user._id,notificationType:{$ne:"new message"}}
+  if(req.query.unReadOnly!==undefined&&req.query.unReadOnly=="true")
+        {
+           searchObj.opened=false;
+        }
+  Notification.find(searchObj)
   .populate('userTo')
   .populate('userFrom')
   .sort({createdAt:-1})
