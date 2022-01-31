@@ -6,7 +6,8 @@ const User = require('../../schemas/UserSchema');
 const Post = require('../../schemas/PostSchema');
 const Notification = require('../../schemas/notificationSchema');
 const multer=require('multer');
-const upload=multer({dest:"uploads/"});
+const {storage}=require('../../cloudinary/index')
+const upload=multer({storage});
 const path=require('path');
 const fs=require('fs');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -90,39 +91,26 @@ router.post('/profilePicture',upload.single("croppedImage"),async(req,res)=>{
         console.log("No files");
         return;
     }
-    var filePath=`/uploads/images/${req.file.filename}.png`;
-    var tempPath=req.file.path;
-    var targetPath=path.join(__dirname,`../../${filePath}`)
-    fs.rename(tempPath,targetPath,async error=>{
-        if(error!=null)
-        {
-            console.log(error);
-            return res.sendStatus(400);
-        }
-        req.session.user=await User.findByIdAndUpdate(req.session.user._id,{profilePic:filePath},{new:true})
+   console.log(req.file)
+   const url=req.file.path;
+   const filename=req.file.filename
+        req.session.user=await User.findByIdAndUpdate(req.session.user._id,{profilePic:url},{new:true})
         return res.sendStatus(204);
 
     })
    // res.send(req.file);
-})
 router.post('/coverPhoto',upload.single("croppedImage"),async(req,res)=>{
     if(!req.file){
         console.log("No files");
         return;
     }
-    var filePath=`/uploads/images/${req.file.filename}.png`;
-    var tempPath=req.file.path;
-    var targetPath=path.join(__dirname,`../../${filePath}`)
-    fs.rename(tempPath,targetPath,async error=>{
-        if(error!=null)
-        {
-            console.log(error);
-            return res.sendStatus(400);
-        }
-        req.session.user=await User.findByIdAndUpdate(req.session.user._id,{coverPhoto:filePath},{new:true})
+    const url=req.file.path;
+   const filename=req.file.filename
+        
+        req.session.user=await User.findByIdAndUpdate(req.session.user._id,{coverPhoto:url},{new:true})
         return res.sendStatus(204);
 
     })
    // res.send(req.file);
-})
+
 module.exports = router;

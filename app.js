@@ -6,8 +6,9 @@ const path = require('path')
 const bodyParser = require("body-parser")
 const mongoose = require('mongoose');
 const session = require("express-session");
-const dbUrl = 'mongodb://localhost:27017/tw9';
+const dbUrl = 'mongodb+srv://Loki1341:JPMLiZOBrx5d2OTp@cluster0.sobmf.mongodb.net/Twitter?retryWrites=true&w=majority';
 //const io=require('socket.io');
+require('dotenv').config()
 mongoose.connect(dbUrl, { useNewUrlParser: true });
 
 const db = mongoose.connection;

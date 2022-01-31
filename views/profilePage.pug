@@ -3,6 +3,8 @@ extends layouts/main-layout.pug
 block content
     if !profileUser
         span.errorMessage Check the url you are trying to access
+    if profileUser.profilePic==''
+       - profileUser.profilePic='https://res.cloudinary.com/dsfv2vtbu/image/upload/v1643643730/Twitter/drsmjipchlxtg2tzfyzs.png'
     else  
         script.
             var profileUserId = '!{profileUser._id}';
